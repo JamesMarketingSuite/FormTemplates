@@ -1,0 +1,88 @@
+<html>
+<head>
+<title>Title</title>
+<script
+  src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+<form method="post" action="go.aspx">
+	<input type="hidden" name="cr" value="{(CustomerID)}" />
+	<input type="hidden" name="fm" value="{(FormID)}" />
+	<input type="hidden" name="sb" value="{(SubmissionID)}" />
+	<input type="hidden" name="ri" value="{(PkID)}" />
+	<input type="hidden" name="mg" value="{(MessageID)}" />
+	<input type="hidden" name="cn" value="{(CampaignID)}" />
+  <!-- add in the fields needed for personalization as hidden input fields -->
+  <input type="hidden" name="email" value="{(email)}" />
+	<!-- and as the parameter needed for submisson ("s_%%fieldname%%") -->
+  <input type="hidden" name="s_email" value="{(email)}" />
+	<!-- fields needed for personalization. will be used to populate checkboxes.  There are two examples of each below.
+ 			 update the values needed in the script section below-->
+	<div id="hiddenValsFields">
+		<input type="hidden" name="field1" value="{(field1)}" />
+		<input type="hidden" name="field2" value="{(field2)}" />
+	</div>
+	<div id="hiddenValsPrefs">
+		<!-- Pref type Fields needed for personalization. will be used to populate checkboxes -->
+		<input type="hidden" name="pref1" value="{(pref1)}" />
+		<input type="hidden" name="pref2" value="{(pref2)}" />
+	</div>
+<!-- this is the content body - add copy in this section.  email is already prepopulated. -->
+<!-- checkboxes will need to have ids added that have the same name as name attribute hidden input type above + "_checkbox" -->
+
+		email: {(email)}<br />
+		<input type="checkbox" id="field1_checkbox" /> <input type="hidden" name="s_field1" value="" /> Field1<br />
+		<input type="checkbox" id="field2_checkbox" /> <input type="hidden" name="s_field2" value="" /> Field2<br />
+		<input type="checkbox" id="pref1_checkbox" /> <input type="hidden" name="s_pref1" value="" /> Pref1<br />
+		<input type="checkbox" id="pref2_checkbox" /> <input type="hidden" name="s_pref2" value="" /> Pref2<br />
+		<input type="submit" value="Submit" />
+
+</form>
+</body>
+<script type="text/javascript">
+	//checkbox prepopulation for Prefs
+
+var getInput = $('#hiddenValsPrefs input');
+$.each(getInput, function(i) {
+	var inputVal = getInput.eq(i).val();
+	var inputName = getInput.eq(i).attr('name');
+  var name = 's_' + inputName;
+	if (inputVal != '' || inputVal != 1500) {
+		$('#' + inputName + '_checkbox').prop( "checked", true )
+		$('input[name="'+name+'"]').val(100);
+}
+});
+
+	//checkbox prepopulation for Fields
+	var getInput = $('#hiddenValsFields input');
+	$.each(getInput, function(i) {
+		var inputVal = getInput.eq(i).val();
+		var inputName = getInput.eq(i).attr('name');
+		var name = 's_' + inputName;
+
+	// change the values here if they are different
+		if (inputVal != '' || inputVal != 1500) {
+			$('#' + inputName + '_checkbox').prop( "checked", true )
+			$('#' + inputName).val(100);
+			$('input[name="'+name+'"]').val(100);
+	}
+	});
+
+// update pref/fields
+// $("input[type='checkbox']").on("change", function() {
+//
+// 		if (this.checked == true) {
+// 			$("input[name=this]").val() = 100
+// 		};
+// 		if (this.checked == false) {
+// 			$("input['name']").val() = 100
+// 		};
+//
+//
+// });
+
+
+</script>
+</html>

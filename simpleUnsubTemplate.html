@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>Title</title>
+</head>
+<body>
+<form method="post" action="go.aspx">
+	<input type="hidden" name="cr" value="{(CustomerID)}" />
+	<input type="hidden" name="fm" value="{(FormID)}" />
+	<input type="hidden" name="sb" value="{(SubmissionID)}" />
+	<input type="hidden" name="ri" value="{(PkID)}" />
+	<input type="hidden" name="mg" value="{(MessageID)}" />
+	<input type="hidden" name="cn" value="{(CampaignID)}" />
+  <!-- add in the fields needed for personalization as hidden input fields -->
+  <input type="hidden" name="email" value="{(email)}" />
+	<!-- and as the parameter needed for submisson ("s_%%fieldname%%") -->
+  <input type="hidden" name="s_email" value="{(email)}" />
+
+<!-- this is the content body - add copy in this section.  email is already prepopulated. -->
+	<table cellspacing="0" cellpadding="3" border="0">
+		<tr>
+			<td align="right">email: {(email)}</td>
+		</tr>
+			<td colspan="2"><input type="submit" value="Submit" /></td>
+		</tr>
+	</table>
+</form>
+</body>
+</html>
