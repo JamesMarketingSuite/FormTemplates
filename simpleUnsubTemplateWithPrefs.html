@@ -71,17 +71,26 @@ $.each(getInput, function(i) {
 	});
 
 // update pref/fields
-// $("input[type='checkbox']").on("change", function() {
-//
-// 		if (this.checked == true) {
-// 			$("input[name=this]").val() = 100
-// 		};
-// 		if (this.checked == false) {
-// 			$("input['name']").val() = 100
-// 		};
-//
-//
-// });
+$("input[type='checkbox']").on("change", function() {
+    var x =  this.id;
+    var a = x.split('_');
+    var b = 's_' + a[0];
+    var c = 's_' + c;
+    if (this.checked == true) {
+			$('input[name="'+c+'"]').val(100);
+		};
+
+		if (this.checked == false) {
+			if ($('input[name="'+b+'"]').val() == '') {
+
+			}
+      else {
+        $('input[name="'+c+'"]').val(1500);
+      }
+		};
+
+
+});
 
 
 </script>
