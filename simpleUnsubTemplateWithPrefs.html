@@ -22,7 +22,7 @@
  			 update the values needed in the script section below-->
 	<div id="hiddenValsFields">
 		<input type="hidden" name="field1" value="{(field1)}" />
-		<input type="hidden" name="field2" value="{(field2)}" />
+		<input type="hidden" name="field2" value="{(field1)}" />
 	</div>
 	<div id="hiddenValsPrefs">
 		<!-- Pref type Fields needed for personalization. will be used to populate checkboxes -->
@@ -43,55 +43,59 @@
 </body>
 <script type="text/javascript">
 	//checkbox prepopulation for Prefs
-
-var getInput = $('#hiddenValsPrefs input');
-$.each(getInput, function(i) {
-	var inputVal = getInput.eq(i).val();
-	var inputName = getInput.eq(i).attr('name');
+var getInputPrefs = $('#hiddenValsPrefs input');
+$.each(getInputPrefs, function(i) {
+	var inputVal = getInputPrefs.eq(i).val();
+	var inputName = getInputPrefs.eq(i).attr('name');
   var name = 's_' + inputName;
-	if (inputVal != '' || inputVal != 1500) {
+	if (inputVal != '' && inputVal != 1500) {
 		$('#' + inputName + '_checkbox').prop( "checked", true )
 		$('input[name="'+name+'"]').val(100);
 }
 });
-
 	//checkbox prepopulation for Fields
-	var getInput = $('#hiddenValsFields input');
-	$.each(getInput, function(i) {
-		var inputVal = getInput.eq(i).val();
-		var inputName = getInput.eq(i).attr('name');
+	var getInputFields = $('#hiddenValsFields input');
+	$.each(getInputFields, function(i) {
+		var inputVal = getInputFields.eq(i).val();
+		var inputName = getInputFields.eq(i).attr('name');
 		var name = 's_' + inputName;
-
 	// change the values here if they are different
-		if (inputVal != '' || inputVal != 1500) {
+		if (inputVal != '' && inputVal != 1500) {
 			$('#' + inputName + '_checkbox').prop( "checked", true )
-			$('#' + inputName).val(100);
 			$('input[name="'+name+'"]').val(100);
 	}
 	});
-
-// update pref/fields
+// update prefs
 $("input[type='checkbox']").on("change", function() {
     var x =  this.id;
     var a = x.split('_');
-    var b = 's_' + a[0];
-    var c = 's_' + c;
+    var b = a[0];
+    var c = 's_' + b;
     if (this.checked == true) {
 			$('input[name="'+c+'"]').val(100);
 		};
-
 		if (this.checked == false) {
-			if ($('input[name="'+b+'"]').val() == '') {
-
+			if ($('input[name="'+b+'"]').val() != '') {
+        $('input[name="'+c+'"]').val(1500);
 			}
       else {
-        $('input[name="'+c+'"]').val(1500);
+        $('input[name="'+c+'"]').val('');
       }
 		};
-
-
 });
 
+// need to also update var names
+
+// used later for updating fields
+//
+// if (this.checked == false) {
+//   if ($('input[name="'+b+'"]').val() == '') {
+//
+//   }
+//   else {
+//     $('input[name="'+c+'"]').val(1500);
+//   }
+// };
 
 </script>
 </html>
